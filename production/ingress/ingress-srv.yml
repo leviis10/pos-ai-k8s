@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: ingress-srv
+    namespace: default
+    annotations:
+        kubernetes.io/ingress.class: "nginx"
+    labels:
+        name: ingress-srv
+spec:
+    ingressClassName: nginx
+    rules:
+        - http:
+              paths:
+                  - pathType: Prefix
+                    path: "/main-service"
+                    backend:
+                        service:
+                            name: main-service-ci
+                            port:
+                                number: 8080
+                  - pathType: Prefix
+                    path: "/machine-learning-service"
+                    backend:
+                        service:
+                            name: machine-learning-service-ci
+                            port:
+                                number: 5000
+                  - pathType: Prefix
+                    path: "/auth-service"
+                    backend:
+                        service:
+                            name: auth-service-ci
+                            port:
+                                number: 3000

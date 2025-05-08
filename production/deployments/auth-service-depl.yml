@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: auth-service-depl
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: auth-service-depl
+    template:
+        metadata:
+            labels:
+                app: auth-service-depl
+        spec:
+            containers:
+                - name: auth-service-depl
+                  image: leviis/idarch-auth-service:1.0.0
+                  imagePullPolicy: Always
+                  ports:
+                      - containerPort: 3000
+                  env:
+                      - name: SERVER_PORT
+                        value: "3000"
+                      - name: DB_HOST
+                        value: <db-host>
+                      - name: DB_PORT
+                        value: "5432"
+                      - name: DB_NAME
+                        value: idarch_auth_service
+                      - name: DB_USER
+                        value: postgres
+                      - name: DB_PASSWORD
+                        value: <db-password>
+                      - name: GIN_MODE
+                        value: release
+                      - name: JWT_SECRET
+                        value: d9d61720fbf2c9f2c5c38133110de1c73113e34101c726b0b4094a226b52796c23f275fc54b83dc6f0f0397c517ba640ceb47c867f21c67a5962406bb81bfd1abf7ea09d4cd77cdff76abb527bc036e8da3db79aa5acb2b84cf4aaa2ef63429e8e48233d0bebaf2c177b9fea560be8949975ee438c35afb8243d48079b3e716de34d225f5986793cb093895ba4ada4e9417051799e8f861498afac85cd9c895c042be02a0091ed2a060b23bfdbaa1006d14978ff14c98b2a7a6fb19ac9af5d48bc5b7777df4154e087991b67cba4028395afbdfcfbd31e8b017d0b5952f3f4563dc905e4aa954f9b75dc669b60627c7e1aac244b974034d141681fbd9560f547

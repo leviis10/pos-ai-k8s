@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: main-service-ci
+spec:
+    type: ClusterIP
+    selector:
+        app: main-service-depl
+    ports:
+        - port: 8080
+          targetPort: 8080
+          protocol: TCP

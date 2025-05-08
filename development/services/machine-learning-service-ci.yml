@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: machine-learning-service-ci
+spec:
+    type: ClusterIP
+    selector:
+        app: machine-learning-service-depl
+    ports:
+        - port: 5000
+          targetPort: 5000
+          protocol: TCP

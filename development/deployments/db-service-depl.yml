@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: db-service-depl
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: db-service-depl
+    template:
+        metadata:
+            labels:
+                app: db-service-depl
+        spec:
+            containers:
+                - name: db-service-depl
+                  image: postgres:17.4
+                  imagePullPolicy: Always
+                  ports:
+                      - containerPort: 5432
+                  env:
+                      - name: POSTGRES_PASSWORD
+                        value: "password"
+                      - name: POSTGRES_USER
+                        value: "postgres"
+                  volumeMounts:
+                      - mountPath: /var/lib/postgresql/data
+                        name: db-service-pvc
+            volumes:
+                - name: db-service-pvc
+                  persistentVolumeClaim:
+                      claimName: db-service-pvc
